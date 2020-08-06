@@ -1,3 +1,9 @@
+- name: EzyAdmin ntpinstallcentos7
+  hosts: all
+  tasks:
+  - name: Hostname a variable
+    debug: var=inventory_hostname
+    
 ---
 - debug: var=list
 
