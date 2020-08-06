@@ -1,0 +1,40 @@
+---
+- debug: var=list
+
+- name: Main process for linux check os version for centos5
+  block:
+    -name: install ntp centos5
+     include: ntpinstallcentos6.yaml
+     loop: "{{ list }}"
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version < '6'
+  
+- name: Main process for linux check os version for centos6
+  block:
+    -name: install ntp centos6
+     include: ntpinstallcentos6.yaml
+     loop: "{{ list }}"
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == '6'
+  
+- name: Main process for linux check os version for centos6
+  block:
+    -name: install ntp centos7
+     include: ntpinstallcentos7.yaml
+     loop: "{{ list }}"
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version > '6'
+
+- name: Main process for linux check os version for centos6
+  block:
+    -name: install ntp Ubuntu
+     include: ntpinstalldb.yaml
+     loop: "{{ list }}"
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == 'Ubuntu'
+  
+  - name: Main process for linux check os version for centos6
+  block:
+    -name: install ntp Debian
+     include: ntpinstalldb.yaml
+     loop: "{{ list }}"
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == 'Debian'
+  
+  
+  
