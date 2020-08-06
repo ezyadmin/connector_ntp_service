@@ -1,3 +1,10 @@
+
+- name: EzyAdmin ntpinstallcentos7
+  hosts: all
+  tasks:
+  - name: Hostname a variable
+    debug: var=inventory_hostname
+
 -    name: Install ntp ntpstat
      apt: name=ntp,ntpstat  update-cache=yes
      tags: ntp
