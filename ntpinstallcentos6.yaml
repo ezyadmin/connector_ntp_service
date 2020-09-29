@@ -1,39 +1,34 @@
-- name: EzyAdmin ntpinstallcentos7
-  hosts: all
-  tasks:
-  - name: Hostname a variable
-    debug: var=inventory_hostname
+---
+   - name: Install ntp ntpstat centos6
+     command: yum install ntp -y
+     become: True
+    
+   - name: Enable ntp
+     shell: chkconfig ntpd on
+     become: True
+    
+   - name: Move file original
+     shell: mv /etc/ntp.conf /etc/ntp.conf.original
+     become: True
+    
+   - name: new the ntp.conf
+     copy:
+      src: ntp.conf
+      dest: /etc/
+      owner: root
+      group: root
+      mode: 0644
+     become: True
+   
+   - name: Restart ntp for sync
+     shell: /etc/init.d/ntpd start
+     become: True
 
-  - name: Install ntp ntpstat
-    command: yum install ntp -y
-    become: True
-    
-  - name: Enable ntp
-    shell: chkconfig ntpd on
-    become: True
-    
-  - name: Move file original
-    shell: mv /etc/ntp.conf /etc/ntp.conf.original
-    become: True
-    
-  - name: new the ntp.conf
-    copy:
-     src: ntp.conf
-     dest: /etc/
-     owner: root
-     group: root
-     mode: 0644
-    become: True
-    
-  - name: Restart ntp for sync
-    shell: /etc/init.d/ntpd start
-    become: True
-
-  - name: Sync Time ntp
-    command: ntpstat
-    ignore_errors: true
-    become: True
-    
-  - name: Check Sum
-    command: ntpq -p
-    become: True
+   - name: Sync Time ntp
+     command: ntpstat
+     ignore_errors: true
+     become: True
+   
+   - name: Check Sum
+     command: ntpq -p
+     become: True
