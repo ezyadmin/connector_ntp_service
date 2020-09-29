@@ -1,6 +1,6 @@
 ### NTP Service Manual Installation
 
-####Compatible
+#### Compatible
 
 - **Linux operation system** , CentOS 6-7, , Ubuntu18.04 , Debain10
 - **Control panel**: No control panel , Direct admin  
@@ -45,4 +45,13 @@ ntpq -p
 server time1.nimt.or.th iburst
 server time2.nimt.or.th iburst
 server time3.nimt.or.th iburst
+```
 
+###### Example Output ~ ntpq -p
+```bash
+     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
++110.78.24.101   .GPS.            1 u   15  256  377    1.731    0.030   0.028
++110.78.24.102   .IRIG.           1 u   26  256  377    1.882   -0.029   0.037
+*110.78.24.103   .IRIG.           1 u  170  256  377    1.809    0.061   0.028
+```
