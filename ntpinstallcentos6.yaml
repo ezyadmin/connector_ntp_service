@@ -1,4 +1,7 @@
 ---
+   - name: Hostname a variable
+     debug: var=inventory_hostname
+     
    - name: Install the latest version of ntp
      yum:
       name: ntp
