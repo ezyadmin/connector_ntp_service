@@ -1,6 +1,8 @@
 ---
-   - name: Install ntp ntpstat centos6
-     command: yum install ntp -y
+   - name: Install the latest version of ntp
+     yum:
+      name: ntp
+      state: present
      become: True
     
    - name: Enable ntp
