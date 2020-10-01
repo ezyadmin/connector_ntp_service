@@ -2,8 +2,10 @@
    - name: Hostname a variable
      debug: var=inventory_hostname
 
-   - name: Install ntp ntpstat
-     command: yum install ntp -y
+   - name: Install the latest version of ntp
+     yum:
+      name: ntp
+      state: present
      become: True
     
    - name: Enable ntp
