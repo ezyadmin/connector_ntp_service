@@ -30,13 +30,12 @@ ntpq -p
 
   ##### Install for  Ubuntu , Debain10
   ```bash
-yum install -y ntp
-service ntpd enable
-mv /etc/ntp.conf /etc/ntp.conf.original
-systemctl enable ntp
-systemctl restart ntp
-ntpstat
-ntpq -p
+sudo  apt-get install ntp -y
+sudo mv /etc/ntp.conf /etc/ntp.conf.original
+sudo systemctl enable ntp
+sudo systemctl restart ntp
+sudo ntpstat
+sudo ntpq -p
   ```
 
 ###### Can used pool ntp server in thailand , edit in file ntp.conf inline 21-23
