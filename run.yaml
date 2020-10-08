@@ -1,5 +1,5 @@
 ---
-- name:  install NTP
+- name: EzyAdmin install NTP
   hosts: all
   tasks:
 
