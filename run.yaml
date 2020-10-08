@@ -1,33 +1,27 @@
 ---
-- name: EzyAdmin ntpinstallcentos7
+- name:  install NTP
   hosts: all
   tasks:
-    - name: Hostname a variable
-      debug: var=inventory_hostname
 
-    - name: Main process for linux check os version for centos6
-      block:
-        - name: install ntp centos6
-          include: ntpinstallcentos6.yaml
-      when: ansible_distribution == "CentOS" and ansible_distribution_major_version == '6'
-   
-    - name: Main process for linux check os version for centos7
-      block:
-        - name: install ntp centos7
-          include: ntpinstallcentos7.yaml
-      when: ansible_distribution == "CentOS" and ansible_distribution_major_version == '7'
+  - name: Hostname a variable
+    debug: var=inventory_hostname
 
-    - name: Main process for linux check os Ubuntu
-      block:
-        - name: install ntp Ubuntu
-          include: ntpinstalldb.yaml
-      when: ansible_distribution == "Ubuntu" 
-  
-    - name: Main process for linux check os Debian
-      block:
-       - name: install ntp Debian
-         include: ntpinstalldb.yaml
-      when: ansible_distribution == "Debian" 
+  - name: Check /usr/local/cpanel/version exists
+    stat:
+      path: /usr/local/cpanel/version
+    register: stat_cpanel
+
+  - name: EzyAdmin Install ntp service
+    block : 
+      - name: Main process for linux check os version for centos6
+        include: ntpinstallcentos6.yaml
+        when: ansible_distribution == "CentOS" and ansible_distribution_major_version == '6'
     
-  
-  
+      - name: Main process for linux check os version for centos7
+        include: ntpinstallcentos7.yaml
+        when: ansible_distribution == "CentOS" and ansible_distribution_major_version == '7'
+
+      - name: Main process for linux check Ubuntu or Debian OS
+        include: debian.yaml
+        when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian" 
+    when: not stat_cpanel.stat.exists 
